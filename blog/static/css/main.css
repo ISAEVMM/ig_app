@@ -1,0 +1,301 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #121212;
+  --bg-header: #1c1c1e;
+  --bg-button: #2b2b2e;
+  --bg-button-hover: #3a3a3d;
+  --bg-card: #1a1a1c;
+  --bg-list: #232326;
+  --text-primary: #f5f1e8;
+  --text-light: #ffffff;
+  --text-muted: #a1a1aa;
+  --accent: #c9a24b;
+  --accent-light: #e0c37a;
+  --border-subtle: #2e2e31;
+  --shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+  --radius: 16px;
+  --radius-sm: 12px;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 24px;
+  background: var(--bg-header);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.header > a {
+  font-size: 26px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text-light);
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.header-menu a,
+.navbar-nav a,
+.navbar-nav button,
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 16px;
+  text-decoration: none;
+  color: var(--text-light);
+  font-weight: 500;
+  font-size: 14px;
+  background: var(--bg-button);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  gap: 8px;
+}
+
+.header-menu a:hover,
+.navbar-nav a:hover,
+.navbar-nav button:hover,
+.profile-link:hover {
+  background: var(--bg-button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.profile-avatar {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+
+/* ==================== MAIN CONTENT ==================== */
+.main {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+aside {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 20px;
+  align-self: start;
+  height: fit-content;
+}
+
+article,
+.content-section,
+.news-container {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.25s ease;
+}
+
+article:hover,
+.content-section:hover,
+.news-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(201, 162, 75, 0.15);
+}
+
+.article-img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.media {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.article-metadata {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.article-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 8px 0 16px 0;
+  color: var(--text-light);
+}
+
+.article-content {
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--text-primary);
+  white-space: pre-line;
+}
+
+.list-group-item {
+  margin-bottom: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg-list);
+  border: 1px solid var(--border-subtle);
+  transition: background 0.2s;
+}
+
+.list-group-item:hover {
+  background: var(--bg-button-hover);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .main {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .navbar-nav {
+    justify-content: center;
+  }
+  .container {
+    padding: 16px;
+  }
+}
+
+/* ====================== LIGHTBOX ====================== */
+.img-lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(40, 40, 43, 0.85); /* Серо-прозрачный красивый фон */
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+.img-lightbox.show {
+  display: flex;
+}
+
+.lightbox-img {
+  max-width: 95%;
+  max-height: 95vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  font-size: 40px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10000;
+  line-height: 1;
+  padding: 5px 15px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.lightbox-close:hover {
+  color: #ff4444;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Крупный и аккуратный контейнер для картинок постов */
+.post-image-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.post-image-container img {
+  max-height: 450px; /* Ограничение высоты в CSS-файле */
+  max-width: 90%; /* Разрешаем картинке быть крупной, на 90% карточки */
+  object-fit: contain;
+  background-color: #232326; /* Темный фон под стать общей теме блога */
+  padding: 6px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}

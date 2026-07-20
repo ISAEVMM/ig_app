@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Удаление поста{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <h2 class="delete-title">Удалить пост?</h2>
+    <p class="delete-text">
+        Вы уверены, что хотите удалить пост <strong>"{{ object.title }}"</strong>?<br>
+        Это действие нельзя отменить.
+    </p>
+
+    <form method="post" style="margin-bottom: 25px;">
+        {% csrf_token %}
+        <button type="submit" class="btn-delete-confirm">
+            Да, удалить пост
+        </button>
+    </form>
+
+    <a href="{% url 'post-detail' object.pk %}" class="btn-delete-cancel">
+        ← Отмена
+    </a>
+</div>
+{% endblock %}

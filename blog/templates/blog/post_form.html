@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin-top: 40px;">
+    <!-- ДОБАВЛЕН АТРИБУТ enctype="multipart/form-data" ДЛЯ ЗАГРУЗКИ ФОТО -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">
+                {{ object|yesno:"Редактировать пост,Создать пост" }}
+            </legend>
+            {{ form|crispy }}
+        </fieldset>
+
+        <div class="form-group" style="margin-top: 30px;">
+            <button class="btn btn-outline-info" type="submit" style="padding: 10px 20px;">
+                {% if object %}Сохранить изменения{% else %}Создать пост{% endif %}
+            </button>
+
+            <a href="/" class="btn btn-outline-secondary" style="padding: 10px 20px; margin-left: 15px;">
+                Отмена
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

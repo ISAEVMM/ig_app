@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for post in posts %}
+<article class="media content-section">
+    <!-- Аватарка автора -->
+    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}" alt="{{ post.author }}">
+
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author }}</a>
+
+            <!-- ОТОБРАЖЕНИЕ ДОСТУПА / РОЛИ -->
+            {% if post.author.is_superuser or "Админ" in post.author.groups.all.0.name %}
+            <span class="badge badge-danger"
+                style="background-color: #dc3545; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px;">Админ</span>
+            {% elif "Зам. Админ" in post.author.groups.all.0.name %}
+            <span class="badge badge-warning"
+                style="background-color: #ffc107; color: black; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px;">Зам.
+                Админ</span>
+            {% elif "Модер" in post.author.groups.all.0.name %}
+            <span class="badge badge-info"
+                style="background-color: #17a2b8; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px;">Модер</span>
+            {% else %}
+            <span class="badge badge-secondary"
+                style="background-color: #6c757d; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: normal; margin-right: 10px;">Пользователь</span>
+            {% endif %}
+
+            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+        </div>
+
+        <h2 class="article-title">
+            <a href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+        </h2>
+
+        <p class="article-content">{{ post.content }}</p>
+
+        <!-- ВЫВОД КАРТИНКИ В ЛЕНТЕ (КРУПНАЯ) -->
+        {% if post.image %}
+        <div class="post-image-container mb-3 text-center">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}"
+                class="img-fluid rounded border shadow-sm lightbox-trigger"
+                style="max-height: 400px; max-width: 85%; object-fit: cover; display: inline-block; cursor: pointer;">
+        </div>
+        {% endif %}
+    </div>
+
+</article>
+{% endfor %}
+{% endblock content %}

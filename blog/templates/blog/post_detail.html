@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="{{ object.author }}">
+
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.author }}</a>
+
+            <!-- ОТОБРАЖЕНИЕ ДОСТУПА / РОЛИ -->
+            {% if object.author.is_superuser or "Админ" in object.author.groups.all.0.name %}
+            <span class="badge badge-danger"
+                style="background-color: #dc3545; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px;">Админ</span>
+            {% elif "Зам. Админ" in object.author.groups.all.0.name %}
+            <span class="badge badge-warning"
+                style="background-color: #ffc107; color: black; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px;">Зам.
+                Админ</span>
+            {% elif "Модер" in object.author.groups.all.0.name %}
+            <span class="badge badge-info"
+                style="background-color: #17a2b8; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px;">Модер</span>
+            {% else %}
+            <span class="badge badge-secondary"
+                style="background-color: #6c757d; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: normal; margin-right: 10px;">Пользователь</span>
+            {% endif %}
+
+            <small class="text-muted">
+                {{ object.date_posted|date:"F d, Y" }}
+            </small>
+
+            {% if object.author == user %}
+            <div class="float-right">
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <h2 class="article-title">{{ object.title }}</h2>
+        <p class="article-content">{{ object.content }}</p>
+
+        <!-- ВЫВОД КАРТИНКИ В ДЕТАЛЬНОМ ПРОСМОТРЕ ПОСТА (КРУПНАЯ) -->
+        {% if object.image %}
+        <div class="post-image-container mb-3 text-center">
+            <img src="{{ object.image.url }}" alt="{{ object.title }}"
+                class="img-fluid rounded shadow-sm border lightbox-trigger"
+                style="max-height: 550px; max-width: 90%; object-fit: contain; display: inline-block; cursor: pointer;">
+        </div>
+        {% endif %}
+    </div>
+
+</article>
+{% endblock content %}

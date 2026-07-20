@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<div class="content-section">
+    <div class="media">
+        {% if user.profile.image %}
+        <img id="profileImg" class="rounded-circle account-img" src="{{ user.profile.image.url }}"
+            alt="{{ user.username }}">
+        {% else %}
+        <img id="profileImg" class="rounded-circle account-img" src="https://via.placeholder.com/150"
+            alt="Default profile image">
+        {% endif %}
+
+        <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+
+            <button id="toggleForm" class="btn btn-secondary" type="button">
+                Редактировать профиль
+            </button>
+
+            <form class="form-inline logout-form d-inline" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-secondary ml-2">Выйти</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="profileForm" class="profile-form">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Обновить профиль</legend>
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">
+                    Обновить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="user-posts-section mt-4">
+    <h3 class="mb-3 border-bottom pb-2">Мои публикации</h3>
+
+    {% for post in posts %}
+    <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="{% url 'post-detail' post.id %}" class="text-dark">{{ post.title }}</a>
+            </h4>
+            <p class="card-text text-muted">{{ post.content|truncatewords:30 }}</p>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <small class="text-secondary">Опубликовано: {{ post.date_posted|date:"d.m.Y H:i" }}</small>
+                <div>
+                    <a class="btn btn-sm btn-outline-info mr-2" href="{% url 'post-update' post.id %}">Редактировать</a>
+                    <a class="btn btn-sm btn-outline-danger" href="{% url 'post-delete' post.id %}">Удалить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-light border">Вы еще не создали ни одной записи.</div>
+    {% endfor %}
+</div>
+
+<!-- Блок Лайтбокса (теперь с крестиком вместо стрелки) -->
+<div id="imgLightbox" class="img-lightbox">
+    <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Закрыть">&times;</button>
+    <img id="lightboxImg" class="lightbox-img" src="" alt="Фото профиля">
+</div>
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<script src="{% static 'js/profile.js' %}"></script>
+
+{% endblock content %}

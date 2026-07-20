@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>Блог клуба {{ title }}</title>
+    {% else %}
+    <title>Intellect Academy Dictionary</title>
+    {% endif %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="#">Logo</a>
+
+            <nav class="header-menu">
+                <ul>
+                    <a href="{% url 'blog-home' %}">
+                        <li>Home</li>
+                    </a>
+                    <a href="{% url 'blog-about' %}">
+                        <li>About</li>
+                    </a>
+                </ul>
+            </nav>
+
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                <form class="nav-item nav-link post-create-form" method="post" action="{% url 'post-create' %}">
+                    {% csrf_token %}
+                    <button type="submit">новая запись</button>
+                </form>
+
+                <div class="nav-item nav-link profile-link" style="cursor: pointer;">
+                    {% if user.profile.image %}
+                    <img src="{{ user.profile.image.url }}" alt="{{ user.username }}"
+                        class="rounded-circle profile-avatar lightbox-trigger">
+                    {% else %}
+                    <img src="{% static 'img/default.png' %}" alt="{{ user.username }}"
+                        class="rounded-circle profile-avatar lightbox-trigger">
+                    {% endif %}
+                    <a href="{% url 'profile' %}"
+                        style="background: none; border: none; padding: 0; margin-left: 8px; height: auto; display: inline; color: var(--text-light);">
+                        {{ user.username }}
+                    </a>
+                </div>
+                {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Вход</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Регистрация</a>
+                {% endif %}
+            </div>
+
+        </header>
+
+        <main class="main">
+            <section class="content">
+                <div>
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </section>
+            <aside>
+                <!-- Кнопка, которая будет переключать видимость меню -->
+                <button id="toggle-sections-btn" class="btn btn-outline-info btn-block mb-3">Показать разделы</button>
+
+                <!-- Обертка списка, которая изначально скрыта через класс d-none -->
+                <div id="sections-content" class="d-none">
+                    <h3>Разделы</h3>
+                    <p class="text-muted">Новости и события</p>
+
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-light">
+                            <a href="#">ЧТООО!?!? Трамп объвил 3 мирувою!</a>
+                        </li>
+                        <li class="list-group-item list-group-item-light">
+                            <a href="#">Что на это ответят Президенты Других стран </a>
+                        </li>
+                        <li class="list-group-item list-group-item-light">
+                            <a href="#">Ким Чен Инь отправил на США Хвасон-18 в количесвте 20 штук</a>
+                        </li>
+                        <li class="list-group-item list-group-item-light">
+                            <a href="#">Встреча президентов и разгар нового конфликта</a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <div id="imgLightbox" class="img-lightbox">
+        <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Закрыть">&times;</button>
+        <img id="lightboxImg" class="lightbox-img" src="" alt="Увеличенное фото">
+    </div>
+
+    <script src="{% static 'js/java.js' %}"></script>
+</body>
+
+</html>
