@@ -1,5 +1,27 @@
-staticfiles/staticfiles/
-media/
+# Django
 *.pyc
 __pycache__/
+db.sqlite3
+db.sqlite3-journal
+
+# Static & Media
+staticfiles/
+media/
+
+# Environment
+.env
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
