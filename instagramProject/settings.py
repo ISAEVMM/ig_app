@@ -130,9 +130,9 @@ USE_TZ = True
 
 # Статика
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / "users" / "static"] # Убедитесь, что эта папка существует!
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Медиа
 MEDIA_URL = '/media/'
