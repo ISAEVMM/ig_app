@@ -81,7 +81,12 @@ img.profile-avatar,
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.75); /* Сделал фон чуть-чуть темнее для лучшего фокуса */
+  background: rgba(
+    0,
+    0,
+    0,
+    0.75
+  ); /* Сделал фон чуть-чуть темнее для лучшего фокуса */
   z-index: 1050;
   align-items: center;
   justify-content: center;
@@ -96,7 +101,7 @@ img.profile-avatar,
   max-height: 60vh;
   border-radius: 12px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-  
+
   /* Анимация плавного появления */
   animation: zoomIn 0.25s ease;
 }
@@ -116,7 +121,9 @@ img.profile-avatar,
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .lightbox-close:hover {

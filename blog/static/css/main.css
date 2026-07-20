@@ -101,12 +101,20 @@ body {
   border-color: var(--accent-light);
 }
 
+/* ==================== AVATAR ==================== */
 .profile-avatar {
-  width: 32px !important;
-  height: 32px !important;
+  width: 38px !important;
+  height: 38px !important;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.08);
+  border-color: var(--accent-light);
 }
 
 /* ==================== MAIN LAYOUT ==================== */
@@ -114,12 +122,6 @@ body {
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 40px;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
 }
 
 aside {
@@ -138,6 +140,7 @@ article {
   border-radius: var(--radius);
   padding: 24px;
   border: 1px solid var(--border-subtle);
+  margin-bottom: 24px;
 }
 
 /* ==================== LIGHTBOX ==================== */
@@ -148,42 +151,36 @@ article {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(40, 40, 43, 0.92);
+  background-color: rgba(18, 18, 18, 0.95);
   z-index: 9999;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .img-lightbox.show {
   display: flex;
 }
 
-.lightbox-content {
-  position: relative;
-}
-
 .lightbox-img {
   max-width: 90%;
   max-height: 90vh;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: var(--shadow);
 }
 
 .lightbox-close {
   position: absolute;
-  top: -50px;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
   color: white;
   border: none;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   font-size: 24px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* ==================== RESPONSIVE ==================== */
@@ -192,19 +189,13 @@ article {
     grid-template-columns: 1fr;
   }
 }
-
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
     align-items: stretch;
   }
-
   .navbar-nav {
     justify-content: center;
     margin-left: 0;
-  }
-
-  .container {
-    padding: 12px;
   }
 }

@@ -1,25 +1,27 @@
+// ==================== PROFILE FORM TOGGLE ====================
 const btn = document.getElementById("toggleForm");
 const form = document.getElementById("profileForm");
 
 if (btn && form) {
   btn.addEventListener("click", () => {
     form.classList.toggle("show");
-    btn.textContent = form.classList.contains("show")
-      ? "Скрыть"
+    btn.textContent = form.classList.contains("show") 
+      ? "Скрыть" 
       : "Редактировать профиль";
   });
 }
 
-// Lightbox
+// ==================== LIGHTBOX ====================
 const lightbox = document.getElementById("imgLightbox");
 const lightboxImg = document.getElementById("lightboxImg");
 const lightboxClose = document.getElementById("lightboxClose");
 
 if (lightbox && lightboxImg && lightboxClose) {
+  
   const openLightbox = (src) => {
     lightboxImg.src = src;
     lightbox.classList.add("show");
-    document.body.style.overflow = "hidden"; // убираем прокрутку страницы
+    document.body.style.overflow = "hidden";
   };
 
   const closeLightbox = () => {
@@ -27,27 +29,20 @@ if (lightbox && lightboxImg && lightboxClose) {
     document.body.style.overflow = "visible";
   };
 
-  // Все изображения, которые должны открываться в lightbox (включая триггеры картинок постов)
-  const clickableImages = document.querySelectorAll(
-    ".profile-avatar, .account-img, .article-img, .lightbox-trigger",
-  );
-
-  clickableImages.forEach((img) => {
+  // Все кликабельные изображения
+  document.querySelectorAll('.profile-avatar, .lightbox-trigger, .article-img, img.rounded-circle').forEach(img => {
+    img.style.cursor = "pointer";
     img.addEventListener("click", (e) => {
       e.preventDefault();
-      if (img.src) {
-        openLightbox(img.src);
-      }
+      if (img.src) openLightbox(img.src);
     });
   });
 
   // Закрытие
   lightboxClose.addEventListener("click", closeLightbox);
-
+  
   lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
+    if (e.target === lightbox) closeLightbox();
   });
 
   document.addEventListener("keydown", (e) => {
@@ -56,19 +51,19 @@ if (lightbox && lightboxImg && lightboxClose) {
     }
   });
 }
+
+// ==================== О НАС ТОГГЛ ====================
 document.addEventListener("DOMContentLoaded", function () {
   const toggleBtn = document.getElementById("toggle-sections-btn");
   const sectionsContent = document.getElementById("sections-content");
 
-  toggleBtn.addEventListener("click", function () {
-    // Переключаем Bootstrap-класс 'd-none' (display: none)
-    sectionsContent.classList.toggle("d-none");
-
-    // Меняем текст на кнопке в зависимости от состояния
-    if (sectionsContent.classList.contains("d-none")) {
-      toggleBtn.textContent = "Показать разделы";
-    } else {
-      toggleBtn.textContent = "Скрыть разделы";
-    }
-  });
+  if (toggleBtn && sectionsContent) {
+    toggleBtn.addEventListener("click", function () {
+      sectionsContent.classList.toggle("d-none");
+      
+      toggleBtn.textContent = sectionsContent.classList.contains("d-none") 
+        ? "О нас" 
+        : "Скрыть";
+    });
+  }
 });
