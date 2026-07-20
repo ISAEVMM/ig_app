@@ -131,10 +131,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 # Статика
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'  # Обязательно слэш в начале
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / "users" / "static"] # Убедитесь, что эта папка существует!
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_DIRS = [BASE_DIR / 'users' / 'static']
+
+# Для современных версий Django (4.2+) используйте этот класс:
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage", # Измените на это
+    },
+}
 
 # Медиа
 MEDIA_URL = '/media/'
