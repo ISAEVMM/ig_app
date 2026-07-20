@@ -66,13 +66,13 @@
                     {% endblock content %}
                 </div>
             </section>
+            {% if request.resolver_match.url_name != 'profile' %}
             <aside>
                 <!-- Кнопка переключения -->
                 <button id="toggle-sections-btn" class="btn btn-outline-info btn-block mb-3">О нас</button>
 
-                <!-- Приветствие (изначально скрыто) -->
+                <!-- Приветствие -->
                 <div id="sections-content" class="d-none mt-4">
-                    <!-- Добавили класс 'text-light' для общего цвета текста и изменили фон на 'bg-dark' -->
                     <div class="card bg-dark border-info text-light">
                         <div class="card-body text-center">
                             <h4 class="card-title text-info">Добро пожаловать!</h4>
@@ -88,6 +88,7 @@
                     </div>
                 </div>
             </aside>
+            {% endif %}
         </main>
     </div>
 
